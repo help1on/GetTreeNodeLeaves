@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GetTreeNodeLeaves
 {
@@ -21,7 +22,7 @@ namespace GetTreeNodeLeaves
 
             GetTreeNodeLeaves(root);
         }
-        static void GetTreeNodeLeaves(TreeNode root)
+        public static void GetTreeNodeLeaves(TreeNode root)
         {
             if (root == null)
             {
@@ -35,7 +36,7 @@ namespace GetTreeNodeLeaves
             {
                 GetTreeNodeLeaves(root.left);
             }
-            if(root.middle != null)
+            if (root.middle != null)
             {
                 GetTreeNodeLeaves(root.middle);
             }
@@ -45,13 +46,36 @@ namespace GetTreeNodeLeaves
             }
         }
 
+        //added code
+        public static void FindChildren(RootTreeNode root)
+        {
+            List<RootTreeNode> storage = new List<RootTreeNode>();
+            if (root.Children.Length == 0)
+            {
+                storage.Add(root);
+            }
+            else
+            {
+                foreach (var item in root.Children)
+                {
+                    FindChildren(item);
+                }
+            }
+            foreach (var item in storage)
+            {
+                Console.WriteLine(item + "");
+            }
+        }
+
         static TreeNode CreateTreeNode(int data)
         {
-            TreeNode t = new TreeNode();
-            t.data = data;
-            t.left = null;
-            t.middle = null;
-            t.right = null;
+            TreeNode t = new TreeNode
+            {
+                data = data,
+                left = null,
+                middle = null,
+                right = null
+            };
             return t;
         }
     }
